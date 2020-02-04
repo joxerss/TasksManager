@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  TasksManager
+
+  Created by Artem Syritsa on 04.02.2020.
+  Copyright © 2020 Artem Syritsa. All rights reserved.
+*/
+
+"intro.email" = "Email";
+"intro.password" = "Пароль";
+"intro.signin" = "Войти";
+"intro.login_register" = "Войти / Зарегистрироваться";
