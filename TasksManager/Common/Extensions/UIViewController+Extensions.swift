@@ -128,7 +128,7 @@ extension UIViewController {
         
         let label =  UILabel.init(frame: CGRect(x: 0, y: 200, width: 200, height: 30))
         label.textAlignment = .center
-        label.text = "No points."
+        label.text = "common.no_results".localized()
         animationView.addSubview(label)
         animationView.clipsToBounds = false
         

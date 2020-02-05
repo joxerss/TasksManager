@@ -12,10 +12,29 @@ class TasksViewController: BaseController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var listOfTasks: Array<Task> = Array<Task>()
+    
+    /// Current page
+    var current: Int = 1
+    
+    /// Total pages
+    var limit: Int = 1
+    
+    /// Count tasks on page
+    let count: Int = 14
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    // MARK: - Overrides
+    
+    override func prepareViews() {
+        reloadFromServer()
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.setupPullToRefresh (completion: { [weak self] in
             self?.pullToRefreshAction()
         })
@@ -26,14 +45,25 @@ class TasksViewController: BaseController {
     // MARK: - Reload
     
     func reloadFromServer() {
-       
+        self.showAnimatedLoader()
+        RequestManager.shared.tasksList(page: current) { [weak self] list in
+            print("")
+            DispatchQueue.main.async { [weak self] in
+                self?.hideAnimatedLoader()
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     func pullToRefreshAction() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.tableView.endPullToRefresh()
-            self?.tableView.reloadData()
+        RequestManager.shared.tasksList(page: current) { [weak self] list in
+            print("")
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.endPullToRefresh()
+                self?.tableView.reloadData()
+            }
         }
+        
     }
 
 }
@@ -50,7 +80,8 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        listOfTasks.count == 0 ? showAnimatedSearchEmpty() : hideAnimatedSearchEmpty()
+        return listOfTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

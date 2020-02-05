@@ -35,10 +35,9 @@ extension String {
     // MARK: - Validations
     
     func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
-        let emailPred = NSPredicate(format:"%@", emailRegEx)
-        return emailPred.evaluate(with: self)
+        let emailRegEx = #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"#
+        let regexp = try? NSRegularExpression(pattern: emailRegEx, options: [.caseInsensitive])
+        return regexp?.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.count)) != nil
     }
     
 }

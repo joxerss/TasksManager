@@ -25,10 +25,6 @@ class MainCoordinator: NSObject {
         super.init()
     }
     
-    public func navigateToSignInControoler() {
-        setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.signInNavigationController), complition: nil)
-    }
-    
     func setRootViewController(_ viewController: UIViewController, complition: (()->())? ) -> Void {
         var window: UIWindow? = nil
         if #available(iOS 13.0, *) {
@@ -59,7 +55,6 @@ class MainCoordinator: NSObject {
         // Validate on Controller here
         let contentController: UIViewController!
         if (UserManager.shared.isAuthorized) {
-            UserManager.shared.restorePreviousSignIn()
             contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.tasksNavigationController)
         } else {
             contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.signInNavigationController)
@@ -74,16 +69,23 @@ class MainCoordinator: NSObject {
     func SignIn() {
         // API SIGN IN
         if UserManager.shared.isAuthorized {
-            let contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.tasksNavigationController)
-            setRootViewController(contentController, complition: nil)
+            navigateToTasksController()
         }
     }
     
     func SignOut() {
         // API SIGN OUT
         if !UserManager.shared.isAuthorized {
-            setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.signInNavigationController), complition: nil)
+            navigateToSignInController()
         }
+    }
+    
+    private func navigateToSignInController() {
+        setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.signInNavigationController), complition: nil)
+    }
+    
+    private func navigateToTasksController() {
+        setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.tasksNavigationController), complition: nil)
     }
     
 //    func presentCrationPoint(in controller: UIViewController, point: CLLocationCoordinate2D) {

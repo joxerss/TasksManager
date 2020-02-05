@@ -13,36 +13,34 @@ class UserManager: NSObject {
     
     static let shared: UserManager = UserManager()
     
-    var name: String?
-    var photoUrl: String?
-    var photoImg: UIImage?
-    
-    var apiToken: String?
+    var email: String?
+    var apiToken: String? {
+        didSet {
+            saveSignIn()
+        }
+    }
     
     private override init() {
         super.init()
         restorePreviousSignIn()
     }
 
-    var isAuthorized: Bool {
-        get {
-//            if let instance = GIDSignIn.sharedInstance(), instance.hasPreviousSignIn() == true {
-//                // User authorized before
-//                return true
-//            } else {
-//                // User not authorized open sign in screen
-                return false
-//            }
-        }
-    }
+    lazy var isAuthorized: Bool = {
+        return apiToken != nil
+    }()
+        
     
     func restorePreviousSignIn() {
-//        UserManager.shared.profileRestoring = true
-        
+        let userDefaults = UserDefaults.standard
+        email = userDefaults.string(forKey: "email")
+        apiToken = userDefaults.string(forKey: "apiToken")
     }
     
-    func googleSignOut() {
-        
+    func saveSignIn() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(email, forKey: "email")
+        userDefaults.set(apiToken, forKey: "apiToken")
+        userDefaults.synchronize()
     }
     
 }

@@ -1,7 +1,101 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Internet Connection-->
+        <scene sceneID="uCi-rd-FZr">
+            <objects>
+                <viewController storyboardIdentifier="InternetConnection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0OC-NZ-xez" customClass="InternetConnection" customModule="Photomate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kvv-ZC-1Qc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHS-Ba-0tP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yWb-ts-OsH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_wifi" translatesAutoresizingMaskIntoConstraints="NO" id="KeY-ka-itA">
+                                <rect key="frame" x="31" y="205" width="352" height="352"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KeY-ka-itA" secondAttribute="height" multiplier="1:1" id="Uxu-rY-C8o"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXw-pM-ges" customClass="MDCButton">
+                                <rect key="frame" x="62" y="648" width="290" height="48"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.41176470590000003" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="mfR-Bc-CPb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkEthernet:" destination="0OC-NZ-xez" eventType="touchUpInside" id="I7d-AF-6ua"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check ethernet connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CC-yG-1In">
+                                <rect key="frame" x="65.5" y="581" width="283" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmf-gX-VgK" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="131.5" width="414" height="409"/>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="transpatentBackgroundColor"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dmf-gX-VgK" firstAttribute="centerY" secondItem="kvv-ZC-1Qc" secondAttribute="centerY" multiplier="0.75" id="4Mg-Ci-q8u"/>
+                            <constraint firstItem="lHS-Ba-0tP" firstAttribute="leading" secondItem="sMV-aw-Iow" secondAttribute="leading" id="6W5-hS-pnJ"/>
+                            <constraint firstAttribute="bottom" secondItem="lHS-Ba-0tP" secondAttribute="bottom" id="Epy-q0-nKK"/>
+                            <constraint firstItem="TXw-pM-ges" firstAttribute="centerX" secondItem="KeY-ka-itA" secondAttribute="centerX" id="GHa-nk-xvi"/>
+                            <constraint firstItem="KeY-ka-itA" firstAttribute="width" secondItem="kvv-ZC-1Qc" secondAttribute="width" multiplier="0.85" id="GWr-vg-BZa"/>
+                            <constraint firstItem="KeY-ka-itA" firstAttribute="centerX" secondItem="kvv-ZC-1Qc" secondAttribute="centerX" id="Hbm-qY-340"/>
+                            <constraint firstItem="2CC-yG-1In" firstAttribute="centerX" secondItem="KeY-ka-itA" secondAttribute="centerX" id="Hgn-C5-X9V"/>
+                            <constraint firstItem="dmf-gX-VgK" firstAttribute="height" secondItem="sMV-aw-Iow" secondAttribute="height" multiplier="0.5" id="P9O-0F-vak"/>
+                            <constraint firstItem="2CC-yG-1In" firstAttribute="top" secondItem="KeY-ka-itA" secondAttribute="bottom" constant="24" id="PZW-yh-36R"/>
+                            <constraint firstItem="lHS-Ba-0tP" firstAttribute="top" secondItem="kvv-ZC-1Qc" secondAttribute="top" id="Q5L-WW-KV2"/>
+                            <constraint firstItem="sMV-aw-Iow" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TXw-pM-ges" secondAttribute="bottom" constant="16" id="UIT-ba-QDo"/>
+                            <constraint firstItem="dmf-gX-VgK" firstAttribute="width" secondItem="sMV-aw-Iow" secondAttribute="width" id="ZbI-Xo-K5P"/>
+                            <constraint firstItem="TXw-pM-ges" firstAttribute="centerY" secondItem="kvv-ZC-1Qc" secondAttribute="centerY" multiplier="1.5" id="ZrN-fg-i42"/>
+                            <constraint firstItem="TXw-pM-ges" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2CC-yG-1In" secondAttribute="bottom" constant="16" id="dkc-XH-bAu"/>
+                            <constraint firstItem="dmf-gX-VgK" firstAttribute="centerX" secondItem="kvv-ZC-1Qc" secondAttribute="centerX" id="eoO-ms-96V"/>
+                            <constraint firstItem="KeY-ka-itA" firstAttribute="centerY" secondItem="kvv-ZC-1Qc" secondAttribute="centerY" multiplier="0.85" id="i2e-ax-Woi"/>
+                            <constraint firstItem="sMV-aw-Iow" firstAttribute="trailing" secondItem="lHS-Ba-0tP" secondAttribute="trailing" id="jMz-IE-abm"/>
+                            <constraint firstItem="TXw-pM-ges" firstAttribute="width" secondItem="kvv-ZC-1Qc" secondAttribute="width" multiplier="0.7" id="od2-JE-C6F"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sMV-aw-Iow"/>
+                    </view>
+                    <connections>
+                        <outlet property="animationView" destination="dmf-gX-VgK" id="uT5-Xf-Pge"/>
+                        <outlet property="checkButton" destination="TXw-pM-ges" id="aSJ-Kz-cSx"/>
+                        <outlet property="messageLabel" destination="2CC-yG-1In" id="DOh-JZ-M9M"/>
+                        <outlet property="titleImage" destination="KeY-ka-itA" id="4lV-Ci-2af"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdY-53-VeZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1513.0434782608697" y="464.73214285714283"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Icon_wifi" width="16" height="16"/>
+        <namedColor name="transpatentBackgroundColor">
+            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

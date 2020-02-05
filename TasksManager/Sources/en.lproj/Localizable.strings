@@ -10,3 +10,12 @@
 "intro.password" = "Password";
 "intro.signin" = "SignIn";
 "intro.login_register" = "SignIn / SignUp";
+
+"internet.check_internet" = "Check Internet connection";
+"internet.no_internet" = "No Internet connection";
+
+"alert.ok" = "Ok";
+
+"common.invalidate_email" = "Email is not valid!";
+"common.enter_password" = "Enter password!";
+"common.no_results" = "No results";

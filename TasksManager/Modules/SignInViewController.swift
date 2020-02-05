@@ -45,6 +45,7 @@ class SignInViewController: BaseController {
         loginTextFieldInput = MDCTextInputControllerOutlined(textInput: loginTextField)
         passwordTextFieldInput = MDCTextInputControllerOutlined(textInput: passwordTextField)
         
+        loginTextField.keyboardType = .emailAddress
         passwordTextField.isSecureTextEntry = true
         signInButton.isUppercaseTitle = false
         
@@ -67,6 +68,38 @@ class SignInViewController: BaseController {
     // MARK: - Actions
     
     @IBAction func signInAction(_ sender: Any) {
+        guard let email = loginTextField.text, email.isValidEmail() else {
+            loginTextFieldInput?.setErrorText("common.invalidate_email".localized(), errorAccessibilityValue: nil)
+            return
+        }
+        loginTextFieldInput?.setErrorText(nil, errorAccessibilityValue: nil)
         
+        guard let password = passwordTextField.text, password.count > 0 else {
+            passwordTextFieldInput?.setErrorText("common.enter_password".localized(), errorAccessibilityValue: nil)
+            return
+        }
+        passwordTextFieldInput?.setErrorText(nil, errorAccessibilityValue: nil)
+        
+        self.view.endEditing(true)
+        
+        let completion: RequestResultSignIn =  { [weak self] token in
+            guard let `self` = self else { return }
+            
+            UserManager.shared.apiToken = token
+            UserManager.shared.email = token != nil ? email : nil
+            UserManager.shared.isAuthorized = token != nil ? true : false
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.hideAnimatedLoader()
+                MainCoordinator.shared.SignIn()
+            }
+        }
+        
+        self.showAnimatedLoader()
+        if(!registerSwitch.isOn) {
+            RequestManager.shared.signIn(email, password, completion)
+        } else {
+            RequestManager.shared.signUp(email, password, completion)
+        }
     }
 }

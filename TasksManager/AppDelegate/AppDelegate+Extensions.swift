@@ -16,4 +16,10 @@ extension AppDelegate {
         FirebaseApp.configure()
     }
     
+    // MARK: - Managers
+    
+    func startManagers() {
+        _ = InternetConnectionManager.shared
+    }
+    
 }
