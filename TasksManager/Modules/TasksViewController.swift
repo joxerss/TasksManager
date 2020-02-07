@@ -73,7 +73,11 @@ class TasksViewController: BaseController {
     override func prepareNavigationBar() {
         let saveBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitBarButtonAction(_:)))
         
-        self.navigationItem.rightBarButtonItem = saveBarButton
+        self.navigationItem.leftBarButtonItem = saveBarButton
+        
+        let sortBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(sortBarButtonAction(_:)))
+        
+        self.navigationItem.rightBarButtonItem = sortBarButton
     }
 
     // MARK: - Reload
@@ -154,6 +158,12 @@ class TasksViewController: BaseController {
     
     @objc func exitBarButtonAction(_ sender: UITabBarItem) {
         MainCoordinator.shared.SignOut()
+    }
+    
+    @objc func sortBarButtonAction(_ sender: UITabBarItem) {
+        sortBy = sortBy == .asc ? .desc : .asc
+        Material.showSnackBar(message: "common.sorting_did_change".localized(), duration: 4.0)
+        reloadFromServer()
     }
 }
 

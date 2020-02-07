@@ -28,6 +28,7 @@
 "common.select_date" = "Select date";
 "common.save" = "Save";
 "common.select_future_date" = "Select future date";
+"common.sorting_did_change" = "Sorting did change";
 
 "due.to" = "Due To";
 

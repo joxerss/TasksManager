@@ -85,8 +85,9 @@ class SignInViewController: BaseController {
         let completion: RequestResultSignIn =  { [weak self] token in
             guard let `self` = self else { return }
             
-            UserManager.shared.apiToken = token
             UserManager.shared.email = token != nil ? email : nil
+            UserManager.shared.apiToken = token
+            UserManager.shared.saveSignIn()
 //            UserManager.shared.isAuthorized = token != nil ? true : false
             
             DispatchQueue.main.async { [weak self] in

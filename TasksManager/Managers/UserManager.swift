@@ -13,7 +13,7 @@ class UserManager: NSObject {
     
     fileprivate let kTokenUpdateTime = "tokenUpdateTime"
     fileprivate let kEmail = "email"
-    fileprivate let kPassword = "password"
+    fileprivate let kToken = "token"
     
     static let shared: UserManager = UserManager()
     
@@ -42,21 +42,21 @@ class UserManager: NSObject {
     func restorePreviousSignIn() {
         let userDefaults = UserDefaults.standard
         email = userDefaults.string(forKey: kEmail)
-        apiToken = userDefaults.string(forKey: kPassword)
+        apiToken = userDefaults.string(forKey: kToken)
         tokenUpdateTime = userDefaults.value(forKey: kTokenUpdateTime) as? Date
     }
     
     func saveSignIn() {
         let userDefaults = UserDefaults.standard
         userDefaults.set(email, forKey: kEmail)
-        userDefaults.set(apiToken, forKey: kPassword)
+        userDefaults.set(apiToken, forKey: kToken)
         userDefaults.set(tokenUpdateTime, forKey: kTokenUpdateTime)
         userDefaults.synchronize()
     }
     
     func removeSignIn() {
         UserDefaults.standard.removeObject(forKey: kEmail)
-        UserDefaults.standard.removeObject(forKey: kPassword)
+        UserDefaults.standard.removeObject(forKey: kToken)
         UserDefaults.standard.removeObject(forKey: kTokenUpdateTime)
         UserDefaults.standard.synchronize()
         

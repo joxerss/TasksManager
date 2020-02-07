@@ -28,5 +28,6 @@
 "common.select_date" = "Выберите дату";
 "common.save" = "Сохранить";
 "common.select_future_date" = "Выбирите будущую дату";
+"common.sorting_did_change" = "Сортировка изменена";
 
 "due.to" = "До";
