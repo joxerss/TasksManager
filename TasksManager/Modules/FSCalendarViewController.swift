@@ -18,6 +18,8 @@ class FSCalendarViewController: BaseController, FSCalendarDelegate {
     var callBackReturnDate: CalendarSelectCompletion?
     var selectedDate: Date?
     
+    var hideOnSelection: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,14 +33,14 @@ class FSCalendarViewController: BaseController, FSCalendarDelegate {
         self.selectedDate = date
         if let `callBackReturnDate` = callBackReturnDate, let `selectedDate` = selectedDate {
             callBackReturnDate(selectedDate, selectedDate.convertToString())
-            Material.hideMaterialPopUp()
+            dismiss(animated: true, completion: nil)
         }
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         let result = date.compare(Date()) == .orderedAscending ? false : true
         if result == false {
-            Material.showSnackBar(message: "common.selet_future_date".localized(), duration: 3.0)
+            Material.showSnackBar(message: "common.select_future_date".localized(), duration: 3.0)
         }
         return result
     }

@@ -27,4 +27,7 @@
 "common.priority" = "Priority";
 "common.select_date" = "Select date";
 "common.save" = "Save";
+"common.select_future_date" = "Select future date";
+
+"due.to" = "Due To";
 

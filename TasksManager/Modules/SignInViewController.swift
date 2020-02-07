@@ -87,7 +87,7 @@ class SignInViewController: BaseController {
             
             UserManager.shared.apiToken = token
             UserManager.shared.email = token != nil ? email : nil
-            UserManager.shared.isAuthorized = token != nil ? true : false
+//            UserManager.shared.isAuthorized = token != nil ? true : false
             
             DispatchQueue.main.async { [weak self] in
                 self?.hideAnimatedLoader()

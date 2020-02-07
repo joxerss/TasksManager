@@ -16,15 +16,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jio-dl-970">
-                        <rect key="frame" x="296" y="23" width="16" height="24"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_short_right" translatesAutoresizingMaskIntoConstraints="NO" id="Jio-dl-970">
+                        <rect key="frame" x="292" y="23" width="20" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="09d-uE-jte"/>
+                            <constraint firstAttribute="width" constant="20" id="09d-uE-jte"/>
                             <constraint firstAttribute="height" constant="24" id="a3E-Le-SfC"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltA-qo-EzC">
-                        <rect key="frame" x="16" y="8" width="272" height="20.5"/>
+                        <rect key="frame" x="16" y="8" width="268" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -70,10 +70,14 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dateTask" destination="dbe-7e-IWz" id="By9-2h-YXB"/>
+                <outlet property="priorityImage" destination="48F-Bm-xor" id="QLi-8Y-m6P"/>
                 <outlet property="priorityTask" destination="B2U-a3-MWr" id="Kg3-tu-IO7"/>
                 <outlet property="titleTask" destination="ltA-qo-EzC" id="548-7n-bOW"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="136.60714285714286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="arrow_short_right" width="36" height="36"/>
+    </resources>
 </document>

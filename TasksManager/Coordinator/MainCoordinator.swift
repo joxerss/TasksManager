@@ -83,6 +83,7 @@ class MainCoordinator: NSObject {
     
     func SignOut() {
         // API SIGN OUT
+        UserManager.shared.removeSignIn()
         if !UserManager.shared.isAuthorized {
             navigateToSignInController()
         }

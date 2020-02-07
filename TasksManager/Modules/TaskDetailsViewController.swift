@@ -51,7 +51,7 @@ class TaskDetailsViewController: BaseController {
         updatePriorityIcon()
         
         self.titleLabel.text = task.title
-        self.dateLabel.text = task.dueBy?.convertToDate().convertToString("")
+        self.dateLabel.text = task.dueBy?.convertToDate().convertToString("EEEE, MMM d, yyyy")
         self.priorityValue.text = task.priority.rawValue
     }
     

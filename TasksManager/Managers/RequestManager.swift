@@ -24,107 +24,9 @@ class RequestManager: NSObject {
         super.init()
     }
     
-    func signUp(_ email: String, _ password: String, _ completion: @escaping RequestResultSignIn) {
-        let url = "/users" // Post
-        let json = [
-            "email": email,
-            "password": password
-        ]
-        
-        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess  in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
-                completion(nil)
-                return
-            }
-            let token = jsonResult["token"] as? String
-            completion(token)
-        })
-    }
+    // MARK: - Public
     
-    func signIn(_ email: String, _ password: String, _ completion: @escaping RequestResultSignIn) {
-        let url = "/auth" // Post
-        let json = [
-            "email": email,
-            "password": password
-        ]
-        
-        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
-                completion(nil)
-                return
-            }
-            let token = jsonResult["token"] as? String
-            completion(token)
-        })
-    }
-    
-    func tasksList(page: Int, sort: SortBy = .asc, _ completion: @escaping RequestResultTaskList) {
-        let url = "/tasks" // Get
-        let json: [String: Any] = [
-            "page": page,
-            "sort": sort.rawValue/*,
-            "offset": "0",
-            "limit": "15",*/
-        ]
-        makeRequest(apiMethod: url, requestType: .get, parameters: json, completion: { jsonResult, isSuccess in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
-                completion(nil)
-                return
-            }
-            completion(jsonResult)
-        })
-    }
-
-    func createTask(json: Dictionary<String, Any>, _ completion: @escaping RequestResultTask) {
-        let url = "/tasks" // Post
-        
-        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
-                let task = jsonResult["task"] as? Dictionary<String, Any> else {
-                completion(nil, isSuccess)
-                return
-            }
-            completion(task, isSuccess)
-        })
-    }
-
-    func detailsTask(taskId: Int, _ completion: @escaping RequestResultTask) {
-        let url = "/tasks/\(taskId)" // Get
-        
-        makeRequest(apiMethod: url, requestType: .get, parameters: nil, completion: { jsonResult, isSuccess in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
-                let task = jsonResult["task"] as? Dictionary<String, Any> else {
-                completion(nil, isSuccess)
-                return
-            }
-            completion(task, isSuccess)
-        })
-    }
-
-    func updateTask(taskId: Int, json: Dictionary<String, Any>, _ completion: @escaping RequestResultIsSuccess) {
-        let url = "/tasks/\(taskId)" // Put
-        
-        makeRequest(apiMethod: url, requestType: .put, parameters: json, completion: { _, isSuccess in
-            completion(isSuccess)
-        })
-    }
-
-    func deleteTask(taskId: Int, _ completion: @escaping RequestResultTask) {
-        let url = "/tasks/\(taskId)" // Delete
-        
-        makeRequest(apiMethod: url, requestType: .delete, parameters: nil, completion: { jsonResult, isSuccess in
-            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
-                let task = jsonResult["task"] as? Dictionary<String, Any> else {
-                completion(nil, isSuccess)
-                return
-            }
-            completion(task, isSuccess)
-        })
-    }
-    
-    // MARK: - Private
-    
-    private func makeRequest(apiMethod: String, requestType: RequesType,
+    func makeRequest(apiMethod: String, requestType: RequesType,
                              parameters: Dictionary<String, Any>?, completion: @escaping RequestResult) {
         let url = URL(string: "\(RequestManager.baseUrl)\(apiMethod)")!
         var request = URLRequest(url: url)
@@ -134,11 +36,12 @@ class RequestManager: NSObject {
         request.httpMethod = requestType.rawValue
         
         if requestType == .get {
-            var queryParams = ""
-            parameters?.keys.forEach({ (key) in
-                queryParams = queryParams.count == 0 ? "?\(key)=\(parameters?[key] ?? "")" : "\(queryParams)&\(key)=\(parameters?[key] ?? "")"
+            var components = URLComponents(string: url.absoluteString)!
+            components.queryItems = parameters?.map({ (arg0) -> URLQueryItem in
+                let (key, value) = arg0
+                return URLQueryItem(name: key, value: value as? String ?? "")
             })
-            request.url = URL(string: "\(url.absoluteString)\(queryParams)")
+            request.url = components.url
         } else {
             if let `parameters` = parameters {
                 do {

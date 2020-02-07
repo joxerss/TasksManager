@@ -35,9 +35,12 @@ class TasksViewController: BaseController {
             self.listOfTasks.insert(task, at: 0)
             DispatchQueue.main.async {  [weak self] in
                 self?.tableView.reloadData()
+                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }()
+    
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +70,11 @@ class TasksViewController: BaseController {
         floatingButton.tintColor = .white
     }
     
+    override func prepareNavigationBar() {
+        let saveBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitBarButtonAction(_:)))
+        
+        self.navigationItem.rightBarButtonItem = saveBarButton
+    }
 
     // MARK: - Reload
     
@@ -93,7 +101,6 @@ class TasksViewController: BaseController {
                 self?.tableView.reloadData()
             }
         }
-        
     }
     
     // MARK: - Prepare Json
@@ -120,9 +127,33 @@ class TasksViewController: BaseController {
         })
     }
     
+    // MARK: - Actions
+    
     @IBAction func floatButtonAction(_ sender: MDCFloatingButton) {
-//        MainCoordinator.shared.navigateToTaskDetailsController(Task(Dictionary<String, Any>()))
         MainCoordinator.shared.presentCreateChangeTaskDetailsController(nil, completionChange: taskCreateCompletion)
+    }
+    
+    func displayDetails(task: Task) {
+        guard let `id` = task.id else { return  }
+        
+        self.showAnimatedLoader()
+        RequestManager.shared.detailsTask(taskId: id) { [weak self] (json, _) in
+            DispatchQueue.main.async {  [weak self] in
+                self?.hideAnimatedLoader()
+            }
+            guard let `json` = json,
+                let `self` = self else { return }
+            
+            let updatedTask = Task(json)
+            DispatchQueue.main.async {  [weak self] in
+                guard let `self` = self else { return }
+                MainCoordinator.shared.navigateToTaskDetailsController(updatedTask, completionChange: self.taskCreateCompletion)
+            }
+        }
+    }
+    
+    @objc func exitBarButtonAction(_ sender: UITabBarItem) {
+        MainCoordinator.shared.SignOut()
     }
 }
 
@@ -154,23 +185,30 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
         displayDetails(task: listOfTasks[indexPath.row])
     }
     
-    func displayDetails(task: Task) {
-        guard let `id` = task.id else { return  }
-        
-        self.showAnimatedLoader()
-        RequestManager.shared.detailsTask(taskId: id) { [weak self] (json, _) in
-            DispatchQueue.main.async {  [weak self] in
-                self?.hideAnimatedLoader()
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            guard let taskId = listOfTasks[indexPath.row].id else {
+                return
             }
-            guard let `json` = json,
-                let `self` = self else { return }
             
-            let updatedTask = Task(json)
-            DispatchQueue.main.async {  [weak self] in
-                guard let `self` = self else { return }
-                MainCoordinator.shared.navigateToTaskDetailsController(updatedTask, completionChange: self.taskCreateCompletion)
+            RequestManager.shared.deleteTask(taskId: taskId) { [weak self] (_, isSuccess) in
+                guard let index = self?.listOfTasks.firstIndex(where: { $0.id == taskId }) else {
+                    self?.reloadFromServer()
+                    return
+                }
+
+                self?.listOfTasks.remove(at: index)
+                DispatchQueue.main.async {
+                    self?.tableView.beginUpdates()
+                    self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self?.tableView.endUpdates()
+                }
             }
         }
     }
-
 }

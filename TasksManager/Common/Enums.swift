@@ -16,8 +16,8 @@ enum RequesType: String {
 }
 
 enum SortBy: String {
-    case asc = "ASC"
-    case desc = "DESC"
+    case asc = "title asc"
+    case desc = "title desc"
 }
 
 enum TaskPriority: String {

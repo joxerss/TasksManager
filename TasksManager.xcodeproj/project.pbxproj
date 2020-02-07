@@ -40,6 +40,8 @@
 		AC65115F23EC8244002FDDCA /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65115E23EC8244002FDDCA /* TaskDetailsViewController.swift */; };
 		AC665D9623ED6A66001C744F /* ConvertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC665D9523ED6A66001C744F /* ConvertExtensions.swift */; };
 		AC665D9823ED6E20001C744F /* FSCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC665D9723ED6E20001C744F /* FSCalendarViewController.swift */; };
+		AC680B0423EDD769008DC37F /* RequestManager+Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC680B0323EDD769008DC37F /* RequestManager+Tasks.swift */; };
+		AC680B0723EDD8F0008DC37F /* LableInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC680B0623EDD8F0008DC37F /* LableInset.swift */; };
 		AC68744523ECB15F001CD2E3 /* TaskChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC68744423ECB15F001CD2E3 /* TaskChangeViewController.swift */; };
 		AC68744823ECD5B9001CD2E3 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC68744623ECD5B9001CD2E3 /* TaskTableViewCell.swift */; };
 		AC68744923ECD5B9001CD2E3 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC68744723ECD5B9001CD2E3 /* TaskTableViewCell.xib */; };
@@ -86,6 +88,8 @@
 		AC65115E23EC8244002FDDCA /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
 		AC665D9523ED6A66001C744F /* ConvertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertExtensions.swift; sourceTree = "<group>"; };
 		AC665D9723ED6E20001C744F /* FSCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarViewController.swift; sourceTree = "<group>"; };
+		AC680B0323EDD769008DC37F /* RequestManager+Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestManager+Tasks.swift"; sourceTree = "<group>"; };
+		AC680B0623EDD8F0008DC37F /* LableInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableInset.swift; sourceTree = "<group>"; };
 		AC68744423ECB15F001CD2E3 /* TaskChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskChangeViewController.swift; sourceTree = "<group>"; };
 		AC68744623ECD5B9001CD2E3 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		AC68744723ECD5B9001CD2E3 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 		AC642AD823E8C74700D177FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AC680B0523EDD8C1008DC37F /* Custome Views */,
 				AC642AD923E8C75C00D177FD /* BaseController.swift */,
 				AC642ADA23E8C75C00D177FD /* Identifiers.swift */,
 				AC642FB323EA4033001875C8 /* Enums.swift */,
@@ -200,6 +205,7 @@
 				AC642FA923EA150C001875C8 /* Material.swift */,
 				AC642AE723E8CAAE00D177FD /* UserManager.swift */,
 				AC642FA723E9F683001875C8 /* RequestManager.swift */,
+				AC680B0323EDD769008DC37F /* RequestManager+Tasks.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -243,6 +249,14 @@
 				AC642FB123EA3FC6001875C8 /* Task.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		AC680B0523EDD8C1008DC37F /* Custome Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC680B0623EDD8F0008DC37F /* LableInset.swift */,
+			);
+			path = "Custome Views";
 			sourceTree = "<group>";
 		};
 		AC68744A23ECE3F1001CD2E3 /* Cells */ = {
@@ -407,6 +421,7 @@
 			files = (
 				AC642AF723E8D38C00D177FD /* SignInViewController.swift in Sources */,
 				AC642ABB23E8C4AC00D177FD /* AppDelegate.swift in Sources */,
+				AC680B0423EDD769008DC37F /* RequestManager+Tasks.swift in Sources */,
 				AC642FB423EA4033001875C8 /* Enums.swift in Sources */,
 				AC665D9623ED6A66001C744F /* ConvertExtensions.swift in Sources */,
 				AC642AE523E8CA1900D177FD /* UIColor+Extensions.swift in Sources */,
@@ -416,6 +431,7 @@
 				AC68744523ECB15F001CD2E3 /* TaskChangeViewController.swift in Sources */,
 				AC65115F23EC8244002FDDCA /* TaskDetailsViewController.swift in Sources */,
 				AC642AFB23E8DAD300D177FD /* TasksViewController.swift in Sources */,
+				AC680B0723EDD8F0008DC37F /* LableInset.swift in Sources */,
 				AC665D9823ED6E20001C744F /* FSCalendarViewController.swift in Sources */,
 				AC642FB223EA3FC6001875C8 /* Task.swift in Sources */,
 				AC642ADB23E8C75C00D177FD /* BaseController.swift in Sources */,
