@@ -158,7 +158,7 @@ class InternetConnection: BaseController {
         titleImage.isHidden = true
         animationView.isHidden = false
         
-        let animation: Animation? = Animation.named("animationNoInternetConnection")
+        let animation: Animation? = Animation.named(animationNoInternetConnection)
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop

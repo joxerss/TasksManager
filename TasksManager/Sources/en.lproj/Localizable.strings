@@ -19,3 +19,12 @@
 "common.invalidate_email" = "Email is not valid!";
 "common.enter_password" = "Enter password!";
 "common.no_results" = "No results";
+
+"common.alert" = "Alert";
+"common.title" = "Title";
+"common.enter_title" = "Enter title";
+"common.enter_due" = "Enter due date";
+"common.priority" = "Priority";
+"common.select_date" = "Select date";
+"common.save" = "Save";
+

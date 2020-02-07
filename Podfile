@@ -10,6 +10,7 @@ target 'TasksManager' do
   pod 'MaterialComponents'
   pod 'ReachabilitySwift', '~> 5.0.0'
   pod 'lottie-ios', '~> 3.1.5'
+  pod 'FSCalendar', '~> 2.8.1'
 
   #Firebase
   pod 'Firebase/Analytics'

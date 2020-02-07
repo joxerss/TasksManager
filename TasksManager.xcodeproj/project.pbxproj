@@ -37,6 +37,12 @@
 		AC642FAE23EA1760001875C8 /* animationNoInternetConnection.json in Resources */ = {isa = PBXBuildFile; fileRef = AC642FAD23EA1760001875C8 /* animationNoInternetConnection.json */; };
 		AC642FB223EA3FC6001875C8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC642FB123EA3FC6001875C8 /* Task.swift */; };
 		AC642FB423EA4033001875C8 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC642FB323EA4033001875C8 /* Enums.swift */; };
+		AC65115F23EC8244002FDDCA /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65115E23EC8244002FDDCA /* TaskDetailsViewController.swift */; };
+		AC665D9623ED6A66001C744F /* ConvertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC665D9523ED6A66001C744F /* ConvertExtensions.swift */; };
+		AC665D9823ED6E20001C744F /* FSCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC665D9723ED6E20001C744F /* FSCalendarViewController.swift */; };
+		AC68744523ECB15F001CD2E3 /* TaskChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC68744423ECB15F001CD2E3 /* TaskChangeViewController.swift */; };
+		AC68744823ECD5B9001CD2E3 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC68744623ECD5B9001CD2E3 /* TaskTableViewCell.swift */; };
+		AC68744923ECD5B9001CD2E3 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC68744723ECD5B9001CD2E3 /* TaskTableViewCell.xib */; };
 		B6D92DA6D9DCD2BDF2C9EE04 /* Pods_TasksManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9DD9CE7A29E65B9B78F145F /* Pods_TasksManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +83,12 @@
 		AC642FAD23EA1760001875C8 /* animationNoInternetConnection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animationNoInternetConnection.json; sourceTree = "<group>"; };
 		AC642FB123EA3FC6001875C8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		AC642FB323EA4033001875C8 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		AC65115E23EC8244002FDDCA /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
+		AC665D9523ED6A66001C744F /* ConvertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertExtensions.swift; sourceTree = "<group>"; };
+		AC665D9723ED6E20001C744F /* FSCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarViewController.swift; sourceTree = "<group>"; };
+		AC68744423ECB15F001CD2E3 /* TaskChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskChangeViewController.swift; sourceTree = "<group>"; };
+		AC68744623ECD5B9001CD2E3 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		AC68744723ECD5B9001CD2E3 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,9 +133,9 @@
 		AC642AB923E8C4AC00D177FD /* TasksManager */ = {
 			isa = PBXGroup;
 			children = (
-				AC642FB023EA3FB7001875C8 /* Models */,
 				AC642ACE23E8C61100D177FD /* AppDelegate */,
 				AC642AD523E8C71A00D177FD /* Coordinator */,
+				AC642FB023EA3FB7001875C8 /* Models */,
 				AC642AF523E8CF5A00D177FD /* Modules */,
 				AC642AE623E8CA9B00D177FD /* Managers */,
 				AC642AD823E8C74700D177FD /* Common */,
@@ -161,6 +173,7 @@
 				AC642AD923E8C75C00D177FD /* BaseController.swift */,
 				AC642ADA23E8C75C00D177FD /* Identifiers.swift */,
 				AC642FB323EA4033001875C8 /* Enums.swift */,
+				AC68744A23ECE3F1001CD2E3 /* Cells */,
 				AC642ADD23E8CA0500D177FD /* Extensions */,
 			);
 			path = Common;
@@ -175,6 +188,7 @@
 				AC642ADE23E8CA1800D177FD /* UIViewController+Extensions.swift */,
 				AC642AF823E8D48A00D177FD /* UITableView+Extensions.swift */,
 				AC642AFC23E8E2AC00D177FD /* UIViewController+Keyboard.swift */,
+				AC665D9523ED6A66001C744F /* ConvertExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -205,6 +219,9 @@
 			children = (
 				AC642AF623E8D38C00D177FD /* SignInViewController.swift */,
 				AC642AFA23E8DAD300D177FD /* TasksViewController.swift */,
+				AC65115E23EC8244002FDDCA /* TaskDetailsViewController.swift */,
+				AC68744423ECB15F001CD2E3 /* TaskChangeViewController.swift */,
+				AC665D9723ED6E20001C744F /* FSCalendarViewController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -226,6 +243,15 @@
 				AC642FB123EA3FC6001875C8 /* Task.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		AC68744A23ECE3F1001CD2E3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AC68744623ECD5B9001CD2E3 /* TaskTableViewCell.swift */,
+				AC68744723ECD5B9001CD2E3 /* TaskTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		CD7CD592B2926F8F4B084B6A /* Frameworks */ = {
@@ -303,6 +329,7 @@
 				AC642AF423E8CF0900D177FD /* GoogleService-Info.plist in Resources */,
 				AC642AEF23E8CB3D00D177FD /* loading-google.json in Resources */,
 				AC642AC423E8C4B000D177FD /* Assets.xcassets in Resources */,
+				AC68744923ECD5B9001CD2E3 /* TaskTableViewCell.xib in Resources */,
 				AC642B0123E8EA3F00D177FD /* Localizable.strings in Resources */,
 				AC642AC223E8C4AC00D177FD /* Main.storyboard in Resources */,
 				AC642AED23E8CB3D00D177FD /* checked-done.json in Resources */,
@@ -381,14 +408,19 @@
 				AC642AF723E8D38C00D177FD /* SignInViewController.swift in Sources */,
 				AC642ABB23E8C4AC00D177FD /* AppDelegate.swift in Sources */,
 				AC642FB423EA4033001875C8 /* Enums.swift in Sources */,
+				AC665D9623ED6A66001C744F /* ConvertExtensions.swift in Sources */,
 				AC642AE523E8CA1900D177FD /* UIColor+Extensions.swift in Sources */,
 				AC642FA823E9F683001875C8 /* RequestManager.swift in Sources */,
 				AC642AF923E8D48B00D177FD /* UITableView+Extensions.swift in Sources */,
 				AC642AD723E8C72800D177FD /* MainCoordinator.swift in Sources */,
+				AC68744523ECB15F001CD2E3 /* TaskChangeViewController.swift in Sources */,
+				AC65115F23EC8244002FDDCA /* TaskDetailsViewController.swift in Sources */,
 				AC642AFB23E8DAD300D177FD /* TasksViewController.swift in Sources */,
+				AC665D9823ED6E20001C744F /* FSCalendarViewController.swift in Sources */,
 				AC642FB223EA3FC6001875C8 /* Task.swift in Sources */,
 				AC642ADB23E8C75C00D177FD /* BaseController.swift in Sources */,
 				AC642AE223E8CA1900D177FD /* UIViewController+Extensions.swift in Sources */,
+				AC68744823ECD5B9001CD2E3 /* TaskTableViewCell.swift in Sources */,
 				AC642ABD23E8C4AC00D177FD /* SceneDelegate.swift in Sources */,
 				AC642FAB23EA150C001875C8 /* Material.swift in Sources */,
 				AC642ADC23E8C75C00D177FD /* Identifiers.swift in Sources */,

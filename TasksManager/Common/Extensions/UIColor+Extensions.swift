@@ -34,5 +34,6 @@ extension UIColor {
     static public let applicationColor: UIColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
     static public let titleColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     static public let buttonColor: UIColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+    static public let buttonSelectedColor: UIColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
     
 }

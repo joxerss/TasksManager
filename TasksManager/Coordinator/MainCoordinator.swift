@@ -20,10 +20,15 @@ extension UIViewController {
 class MainCoordinator: NSObject {
 
     static let shared: MainCoordinator = MainCoordinator()
+    var rootController: UIViewController!
+    
+    // MARK: - Life cycle
     
     private override init() {
         super.init()
     }
+    
+    // MARK: - Global actions
     
     func setRootViewController(_ viewController: UIViewController, complition: (()->())? ) -> Void {
         var window: UIWindow? = nil
@@ -42,6 +47,8 @@ class MainCoordinator: NSObject {
         viewController.modalPresentationStyle = .fullScreen
         curWindow.rootViewController = viewController
         curWindow.makeKeyAndVisible()
+
+        rootController = viewController
         
         UIView.transition(with: curWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: { _ in
             if let complition = complition {
@@ -63,6 +70,7 @@ class MainCoordinator: NSObject {
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = contentController
         window.makeKeyAndVisible()
+        rootController = contentController
         return window
     }
     
@@ -80,6 +88,8 @@ class MainCoordinator: NSObject {
         }
     }
     
+    // MARK: - Private
+    
     private func navigateToSignInController() {
         setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.signInNavigationController), complition: nil)
     }
@@ -88,16 +98,52 @@ class MainCoordinator: NSObject {
         setRootViewController(UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.tasksNavigationController), complition: nil)
     }
     
-//    func presentCrationPoint(in controller: UIViewController, point: CLLocationCoordinate2D) {
-//        let contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UIViewController.creationPointViewController) as! CreationPointViewController
-//        contentController.loadViewIfNeeded()
-//
-//        contentController.modalPresentationStyle = .custom
-//        contentController.modalTransitionStyle = .crossDissolve
-//
-//        contentController.point = point
-//        controller.present(contentController, animated: true, completion: nil)
-//
-//    }
+    // MARK: - Public present / push controllers
+    
+    public func navigateToTaskDetailsController(_ task: Task, completionChange: @escaping TaskChangeCompletion) {
+       let contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UIViewController.taskDetailsViewController) as! TaskDetailsViewController
+        contentController.loadViewIfNeeded()
+        
+        contentController.modalPresentationStyle = .custom
+        contentController.modalTransitionStyle = .crossDissolve
+        
+        contentController.fillWith(task, creationCompletion: completionChange)
+        
+        if let `rootController` = rootController {
+            Material.getVisibleViewController(rootController)?.navigationController?.pushViewController(contentController, animated: true)
+        }
+    }
+    
+    public func presentCreateChangeTaskDetailsController(_ task: Task?, completionChange: @escaping TaskChangeCompletion) {
+       let contentController = UIViewController.initContoller(UIStoryboard.main, identifier: UINavigationController.taskChangeNavigationController) as! UINavigationController
+        contentController.loadViewIfNeeded()
+        
+        contentController.modalPresentationStyle = .automatic
+        contentController.modalTransitionStyle = .coverVertical
+        
+        if let taskController = contentController.viewControllers.first as? TaskChangeViewController {
+            taskController.loadViewIfNeeded()
+            taskController.fillWith(task, creationCompletion: completionChange)
+        }
+        
+        if let `rootController` = rootController {
+            Material.getVisibleViewController(rootController)?.present(contentController, animated: true, completion: nil)
+        }
+    }
+    
+    public func presentCalendarViewController(_ date: Date?, selectionDateCompletion: @escaping CalendarSelectCompletion) {
+        let contentController = UIViewController.initContoller(UIStoryboard.modal, identifier: UIViewController.fsCalendarViewController) as! FSCalendarViewController
+        contentController.loadViewIfNeeded()
+        
+        contentController.modalPresentationStyle = .automatic
+        contentController.modalTransitionStyle = .coverVertical
+        
+        contentController.selectedDate = date
+        contentController.callBackReturnDate = selectionDateCompletion
+        
+        if let `rootController` = rootController {
+            Material.getVisibleViewController(rootController)?.present(contentController, animated: true, completion: nil)
+        }
+    }
     
 }

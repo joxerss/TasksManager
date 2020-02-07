@@ -8,9 +8,11 @@
 
 import UIKit
 
-typealias RequestResult = (Any?)->()
+typealias RequestResult = (Any?, _ isSuccess: Bool)->()
+typealias RequestResultIsSuccess = (_ isSuccess: Bool)->()
 typealias RequestResultSignIn = (_ token: String?)->()
-typealias RequestResultTaskList = (_ list: Array<Dictionary<String, Any>>?)->()
+typealias RequestResultTaskList = (_ list: Dictionary<String, Any>?)->()
+typealias RequestResultTask = (_ list: Dictionary<String, Any>?, _ isSuccess: Bool)->()
 
 class RequestManager: NSObject {
 
@@ -29,7 +31,7 @@ class RequestManager: NSObject {
             "password": password
         ]
         
-        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult in
+        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess  in
             guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
                 completion(nil)
                 return
@@ -46,7 +48,7 @@ class RequestManager: NSObject {
             "password": password
         ]
         
-        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult in
+        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess in
             guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
                 completion(nil)
                 return
@@ -60,10 +62,12 @@ class RequestManager: NSObject {
         let url = "/tasks" // Get
         let json: [String: Any] = [
             "page": page,
-            "sort": sort.rawValue
+            "sort": sort.rawValue/*,
+            "offset": "0",
+            "limit": "15",*/
         ]
-        makeRequest(apiMethod: url, requestType: .get, parameters: json, completion: { jsonResult in
-            guard let `jsonResult` = jsonResult as? Array<Dictionary<String, Any>> else {
+        makeRequest(apiMethod: url, requestType: .get, parameters: json, completion: { jsonResult, isSuccess in
+            guard let `jsonResult` = jsonResult as? Dictionary<String, Any> else {
                 completion(nil)
                 return
             }
@@ -71,20 +75,51 @@ class RequestManager: NSObject {
         })
     }
 
-    func createTask() {
+    func createTask(json: Dictionary<String, Any>, _ completion: @escaping RequestResultTask) {
         let url = "/tasks" // Post
+        
+        makeRequest(apiMethod: url, requestType: .post, parameters: json, completion: { jsonResult, isSuccess in
+            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
+                let task = jsonResult["task"] as? Dictionary<String, Any> else {
+                completion(nil, isSuccess)
+                return
+            }
+            completion(task, isSuccess)
+        })
     }
 
-    func detailsTask() {
-        let url = "/tasks/{task}" // Get
+    func detailsTask(taskId: Int, _ completion: @escaping RequestResultTask) {
+        let url = "/tasks/\(taskId)" // Get
+        
+        makeRequest(apiMethod: url, requestType: .get, parameters: nil, completion: { jsonResult, isSuccess in
+            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
+                let task = jsonResult["task"] as? Dictionary<String, Any> else {
+                completion(nil, isSuccess)
+                return
+            }
+            completion(task, isSuccess)
+        })
     }
 
-    func updateTask() {
-        let url = "/tasks/{task}" // Put
+    func updateTask(taskId: Int, json: Dictionary<String, Any>, _ completion: @escaping RequestResultIsSuccess) {
+        let url = "/tasks/\(taskId)" // Put
+        
+        makeRequest(apiMethod: url, requestType: .put, parameters: json, completion: { _, isSuccess in
+            completion(isSuccess)
+        })
     }
 
-    func deleteTask() {
-        let url = "/tasks/{task}" // Delete
+    func deleteTask(taskId: Int, _ completion: @escaping RequestResultTask) {
+        let url = "/tasks/\(taskId)" // Delete
+        
+        makeRequest(apiMethod: url, requestType: .delete, parameters: nil, completion: { jsonResult, isSuccess in
+            guard let `jsonResult` = jsonResult as? Dictionary<String, Any>,
+                let task = jsonResult["task"] as? Dictionary<String, Any> else {
+                completion(nil, isSuccess)
+                return
+            }
+            completion(task, isSuccess)
+        })
     }
     
     // MARK: - Private
@@ -97,7 +132,6 @@ class RequestManager: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(UserManager.shared.apiToken ?? "")", forHTTPHeaderField: "Authorization")
         request.httpMethod = requestType.rawValue
-//        request.httpBody = parameters?.percentEncoded()
         
         if requestType == .get {
             var queryParams = ""
@@ -110,7 +144,7 @@ class RequestManager: NSObject {
                 do {
                     try request.httpBody = JSONSerialization.data(withJSONObject: parameters, options: [])
                 } catch {
-                    completion(nil)
+                    completion(nil, false)
                     return
                 }
             }
@@ -122,21 +156,21 @@ class RequestManager: NSObject {
                 let response = response as? HTTPURLResponse,
                 error == nil else {
                     Material.showSnackBar(message: error?.localizedDescription ?? "Unknown error", duration: 8.0)
-                    completion(nil)
+                    completion(nil, false)
                     return
             }
 
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 self.errorHandler(response: response, data: data)
-                completion(nil)
+                completion(nil, false)
                 return
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
-                completion(json)
+                completion(json, true)
             } catch {
-                completion(nil)
+                completion(nil, true)
             }
         }
 
@@ -183,27 +217,4 @@ class RequestManager: NSObject {
         }
     }
     
-}
-
-extension Dictionary {
-    func percentEncoded() -> Data? {
-        return map { key, value in
-            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            return escapedKey + "=" + escapedValue
-        }
-        .joined(separator: "&")
-        .data(using: .utf8)
-    }
-}
-
-extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        return allowed
-    }()
 }

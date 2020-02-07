@@ -111,7 +111,7 @@ class Material: NSObject {
         
         // Present a modal alert
         let alertController = MDCAlertController(title: title, message: message)
-        let action = MDCAlertAction(title:"alert.ok".localized()) { (action) in print("alert.ok".localized()) }
+        let action = MDCAlertAction(title:"alert.ok".localized()) { (action) in /*print("alert.ok".localized())*/ }
         alertController.addAction(action)
         
         visibleController?.present(alertController, animated:true, completion:nil)
@@ -139,7 +139,7 @@ class Material: NSObject {
         }
         
         if (shouldAddDefaultButton == true) {
-            let action = MDCAlertAction(title:"alert.ok".localized()) { (action) in print("alert.ok".localized()) }
+            let action = MDCAlertAction(title:"alert.ok".localized()) { (action) in /*print("alert.ok".localized())*/ }
             alertController.addAction(action)
         }
         

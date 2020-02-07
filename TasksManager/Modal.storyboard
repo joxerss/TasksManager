@@ -11,7 +11,7 @@
         <!--Internet Connection-->
         <scene sceneID="uCi-rd-FZr">
             <objects>
-                <viewController storyboardIdentifier="InternetConnection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0OC-NZ-xez" customClass="InternetConnection" customModule="Photomate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InternetConnection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0OC-NZ-xez" customClass="InternetConnection" customModule="TasksManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kvv-ZC-1Qc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,9 +91,65 @@
             </objects>
             <point key="canvasLocation" x="-1513.0434782608697" y="464.73214285714283"/>
         </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="1FL-sy-jd2">
+            <objects>
+                <viewController storyboardIdentifier="FSCalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4OL-iq-trf" customClass="FSCalendarViewController" customModule="TasksManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="If5-t4-RhI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJE-OK-03D" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsSelection" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectionColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTodayColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" red="1" green="0.30980392159999998" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsBoundingRectWhenChangingMonths" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bbN-my-AVa" firstAttribute="bottom" secondItem="eJE-OK-03D" secondAttribute="bottom" id="IPK-Rh-1fF"/>
+                            <constraint firstItem="bbN-my-AVa" firstAttribute="trailing" secondItem="eJE-OK-03D" secondAttribute="trailing" id="Mao-rj-YSu"/>
+                            <constraint firstItem="eJE-OK-03D" firstAttribute="leading" secondItem="bbN-my-AVa" secondAttribute="leading" id="dI7-EP-JMg"/>
+                            <constraint firstItem="eJE-OK-03D" firstAttribute="top" secondItem="bbN-my-AVa" secondAttribute="top" id="fiM-uC-Av4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bbN-my-AVa"/>
+                    </view>
+                    <connections>
+                        <outlet property="calendar" destination="eJE-OK-03D" id="VrV-dN-SJd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t9u-ql-oKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-613" y="465"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="Icon_wifi" width="16" height="16"/>
+        <image name="Icon_wifi" width="500" height="500"/>
         <namedColor name="transpatentBackgroundColor">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

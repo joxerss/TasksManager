@@ -12,14 +12,30 @@ class Task: NSObject {
     
     var id: Int?
     var title: String?
-    var dueBy: Float?
-    var priority: TaskPriority?
+    var dueBy: Int?
+    var priority: TaskPriority
+    
+    override init() {
+        id = nil
+        title = nil
+        dueBy = nil
+        priority = .Normal
+    }
     
     init(_ json: Dictionary<String, Any>) {
         id = json["id"] as? Int
         title = json["title"] as? String
-        dueBy = json["dueBy"] as? Float
-        priority = json["priority"] as? TaskPriority
+        dueBy = json["dueBy"] as? Int
+        let priorityString = json["priority"] as? String
+        priority =  TaskPriority(rawValue: priorityString ?? TaskPriority.Normal.rawValue)!
+    }
+    
+    func convertToJson() -> Dictionary<String, Any> {
+        return [
+          "title": title ?? "",
+          "dueBy": dueBy ?? "",
+          "priority": priority.rawValue
+        ]
     }
     
 }

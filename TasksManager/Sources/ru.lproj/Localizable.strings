@@ -19,3 +19,11 @@
 "common.invalidate_email" = "Не валидный email!";
 "common.enter_password" = "Введите пароль!";
 "common.no_results" = "Нет результатов";
+
+"common.alert" = "Внимание";
+"common.title" = "Заголовок";
+"common.enter_title" = "Ведите заголовок";
+"common.enter_due" = "Введите дату \"до\"";
+"common.priority" = "Приоритет";
+"common.select_date" = "Выберите дату";
+"common.save" = "Сохранить";

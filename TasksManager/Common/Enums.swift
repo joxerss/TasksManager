@@ -16,12 +16,17 @@ enum RequesType: String {
 }
 
 enum SortBy: String {
-    case asc = "asc"
-    case desc = "desc"
+    case asc = "ASC"
+    case desc = "DESC"
 }
 
 enum TaskPriority: String {
    case Low = "Low"
    case Normal = "Normal"
    case High = "High"
+}
+
+enum TaskChangeCreateMode {
+    case createMode
+    case changeMode
 }
