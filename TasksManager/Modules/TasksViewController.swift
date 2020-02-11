@@ -85,6 +85,7 @@ class TasksViewController: BaseController {
     func reloadFromServer() {
         self.showAnimatedLoader()
         RequestManager.shared.tasksList(page: current, sort: sortBy) { [weak self] listJson in
+            self?.listOfTasks.removeAll()
             self?.parseJson(json: listJson)
             DispatchQueue.main.async { [weak self] in
                 self?.hideAnimatedLoader()
@@ -99,6 +100,7 @@ class TasksViewController: BaseController {
         canPaginate = false
         
         RequestManager.shared.tasksList(page: current, sort: sortBy) { [weak self] listJson in
+            self?.listOfTasks.removeAll()
             self?.parseJson(json: listJson)
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.endPullToRefresh()
